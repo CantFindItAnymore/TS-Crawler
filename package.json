@@ -1,0 +1,28 @@
+{
+  "name": "TS-Crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node ./src/crawler.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CantFindItAnymore/TS-Crawler.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CantFindItAnymore/TS-Crawler/issues"
+  },
+  "homepage": "https://github.com/CantFindItAnymore/TS-Crawler#readme",
+  "dependencies": {
+    "@types/cheerio": "^0.22.21",
+    "@types/superagent": "^4.1.9",
+    "cheerio": "^1.0.0-rc.3",
+    "superagent": "^6.0.0",
+    "ts-node": "^8.10.2"
+  }
+}
