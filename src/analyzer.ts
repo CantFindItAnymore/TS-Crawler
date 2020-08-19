@@ -1,5 +1,6 @@
 import cheerio from "cheerio";
 import fs from "fs";
+import { Analyze } from "./crawler";
 
 interface Course {
   title: string;
@@ -15,7 +16,8 @@ interface Content {
   [propName: number]: Course[]
 }
 
-export default class Analyzer {
+export default class Analyzer implements Analyze {
+  // 拿到www.dell-lee.com中的我们需要的数据
   private getCourseInfo = (html: string) => {
     const $ = cheerio.load(html);
     const courseItems = $(".course-item");
@@ -36,6 +38,7 @@ export default class Analyzer {
     return result;
   };
 
+  // 转化为我们需要的数据结构
   private generateJsonContent = (courseInfo: CourseResult, filePath: string) => {
     let fileContent: Content = {};
     if (fs.existsSync(filePath)) {
@@ -46,9 +49,9 @@ export default class Analyzer {
     return fileContent;
   };
 
-  public analyze = async (html: string, filePath: string) => {
-    const courseInfo = await this.getCourseInfo(html)
-    const jsonContent = await this.generateJsonContent(courseInfo, filePath);
-    return jsonContent
+  public analyze = (html: string, filePath: string) => {
+    const courseInfo = this.getCourseInfo(html)
+    const jsonContent = this.generateJsonContent(courseInfo, filePath);
+    return JSON.stringify(jsonContent)
   };
 }
