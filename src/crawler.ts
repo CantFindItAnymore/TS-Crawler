@@ -16,17 +16,17 @@ class Crawler {
   private filePath = path.resolve(__dirname, "../data/course.json");
 
   // 获取dom
-  getRawHtml = async () => {
+  private getRawHtml = async () => {
     const result = await superagent.get(this.url);
     return result.text;
   };
 
   // 写入文件
-  writeJsonContent = (fileContent: string) => {
+  private writeJsonContent = (fileContent: string) => {
     fs.writeFileSync(this.filePath, fileContent);
   };
 
-  crawler = async () => {
+  private crawler = async () => {
     const html = await this.getRawHtml();
     const jsonContent = await this.analyzer.analyze(html, this.filePath);
     this.writeJsonContent(jsonContent);
@@ -39,5 +39,7 @@ class Crawler {
 
 const secret = "x3b174jsx";
 const url = `http://www.dell-lee.com/typescript/demo.html?secret=${secret}`;
-const analyzer = new Analyzer()
+// const analyzer = new Analyzer()
+const analyzer = Analyzer.getInstance();
+
 const crawler = new Crawler(url, analyzer);

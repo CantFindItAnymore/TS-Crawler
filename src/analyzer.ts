@@ -17,6 +17,17 @@ interface Content {
 }
 
 export default class Analyzer implements Analyze {
+
+  private static instance: Analyzer
+
+  static getInstance() {
+    if(!Analyzer.instance) {
+      Analyzer.instance = new Analyzer()
+    }
+    return Analyzer.instance
+  }
+
+
   // 拿到www.dell-lee.com中的我们需要的数据
   private getCourseInfo = (html: string) => {
     const $ = cheerio.load(html);
@@ -54,4 +65,7 @@ export default class Analyzer implements Analyze {
     const jsonContent = this.generateJsonContent(courseInfo, filePath);
     return JSON.stringify(jsonContent)
   };
+
+  // 单例模式 不能被外部实例化
+  private constructor() {}
 }
