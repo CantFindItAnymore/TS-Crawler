@@ -36,7 +36,6 @@ class Crawler {
 
 const start = (url: string) => {
 	const analyzer = Analyzer.getInstance()
-
 	const crawler = new Crawler(url, analyzer)
 }
 
