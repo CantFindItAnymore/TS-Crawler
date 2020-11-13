@@ -1,5 +1,5 @@
 const mysql = require('mysql')
-const MYSQL_CONF = require('../conf/db')
+import MYSQL_CONF from '../conf/db'
 
 // 创建连接对象
 const con = mysql.createConnection(MYSQL_CONF)
@@ -8,9 +8,9 @@ const con = mysql.createConnection(MYSQL_CONF)
 con.connect()
 
 // 统一执行sql语句
-const exec = (sql) => {
+const exec = (sql: string) => {
   const promise = new Promise((resolve, reject) => {
-    con.query(sql, (err, result) => {
+    con.query(sql, (err: any, result: any) => {
       if (err) {
         console.log('exec_err: ', err)
         reject(err)
@@ -24,4 +24,4 @@ const exec = (sql) => {
   return promise
 }
 
-module.exports = exec
+export default exec
