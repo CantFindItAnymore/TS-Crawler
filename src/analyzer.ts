@@ -2,7 +2,7 @@ import cheerio from 'cheerio'
 import fs from 'fs'
 import { Analyze } from './crawler'
 
-interface Course {
+export interface Course {
 	id: string
 	title: string
 	img: string

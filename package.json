@@ -23,6 +23,7 @@
     "@types/superagent": "^4.1.9",
     "cheerio": "^1.0.0-rc.3",
     "global": "^4.4.0",
+    "mysql": "^2.18.1",
     "superagent": "^6.0.0",
     "ts-node": "^8.10.2",
     "typescript": "^4.0.5"

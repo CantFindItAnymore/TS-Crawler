@@ -3,7 +3,10 @@ import fs from 'fs'
 import path from 'path'
 import superagent from 'superagent'
 
+import { Course } from './analyzer'
+
 import Analyzer from './analyzer'
+const exec = require('./db/mysql')
 
 export interface Analyze {
 	analyze: (html: string, filePath: string) => string
@@ -21,6 +24,20 @@ class Crawler {
 	// 写入文件
 	private writeJsonContent = (fileContent: string) => {
 		fs.writeFileSync(this.filePath, fileContent)
+
+		// 传入数据库
+		const fileContentObj: Course[] = JSON.parse(fileContent)
+		fileContentObj.map(item => {
+			const { id, title, img, alt } = item
+			if (title && id && img && alt) {
+				let sql = `insert into cover (id,title, img, alt) values ('${id}', '${title}', '${img}', '${alt}')`
+				exec(sql).then(() => {
+					console.log('ok')
+				})
+			} else {
+				console.log('err')
+			}
+		})
 	}
 
 	private crawler = async () => {
@@ -40,12 +57,12 @@ const start = (url: string) => {
 }
 
 start(`https://www.luoow.com`)
-start(`https://www.luoow.com/1_100.html`)
-start(`https://www.luoow.com/101_200.html`)
-start(`https://www.luoow.com/201_300.html`)
-start(`https://www.luoow.com/301_400.html`)
-start(`https://www.luoow.com/401_500.html`)
-start(`https://www.luoow.com/501_600.html`)
-start(`https://www.luoow.com/601_700.html`)
-start(`https://www.luoow.com/701_800.html`)
-start(`https://www.luoow.com/801_900.html`)
+// start(`https://www.luoow.com/1_100.html`)
+// start(`https://www.luoow.com/101_200.html`)
+// start(`https://www.luoow.com/201_300.html`)
+// start(`https://www.luoow.com/301_400.html`)
+// start(`https://www.luoow.com/401_500.html`)
+// start(`https://www.luoow.com/501_600.html`)
+// start(`https://www.luoow.com/601_700.html`)
+// start(`https://www.luoow.com/701_800.html`)
+// start(`https://www.luoow.com/801_900.html`)
